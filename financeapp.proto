@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package operation;
+
+service Operation {
+  rpc Mul (OpRequest) returns (OpReply) {}
+  rpc Add (OpRequest) returns (OpReply) {}
+  rpc Sub (OpRequest) returns (OpReply) {}
+  rpc Div (OpRequest) returns (OpReply) {}
+  rpc RegistraUtente (DatiUtente) returns (Conferma) {}
+  rpc AggiornaTicker (DatiUtente) returns (Conferma) {}
+  rpc CancellaUtente (Email) returns (Conferma) {}
+  rpc RecuperaValore (Email) returns (Valore) {}
+  rpc CalcolaMediaValori (DatiMediaValori) returns (Valore) {}
+}
+
+message OpRequest {
+  double op1 = 1;
+  double op2 = 2;
+}
+
+message OpReply {
+  double res = 1;
+}
+
+message DatiUtente{
+    string email = 1;
+    string ticker = 2;
+}
+
+message Email{
+    string email = 1;
+}
+
+message Conferma{
+    bool conferma = 1;
+    string messaggio = 2;
+}
+
+message Valore{
+    float valore = 1;
+}
+
+message DatiMediaValori{
+    string email = 1;
+    int32 numeroDati = 2;
+}
