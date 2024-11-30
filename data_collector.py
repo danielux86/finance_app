@@ -6,22 +6,22 @@ from circuit_breaker import CircuitBreaker, CircuitBreakerOpenException
                 
 circuit_breaker = CircuitBreaker()  #argomenti personalizzati
 
-def connessione_db():
+def db_connection():
     try:
         connection = MySQLdb.connect(
-            host = 'localhost',
-            user = 'root',
-            password = 'unictlm32',
-            database = 'finance_app'
+            host="localhost",
+            user="server",
+            password="1234",
+            database="financeapp"
         )
         return connection
-    except MySQLdb.Error:
-        print("Errore nella connessione al database.")
+    except MySQLdb.Error as err:
+        print("Error: ", err)
         return None
     
 def recupera_righe_utenti():   #database utenti: | email | ticker |
     try:
-        connection = connessione_db()
+        connection = db_connection()
         cursor = connection.cursor()
         query = "SELECT email, ticker FROM utenti;"
         cursor.execute(query)
@@ -50,7 +50,7 @@ def recupera_ultimo_valore(ticker):
     
 def salva_stock_data(email, ticker, valore):
     try:
-        connection = connessione_db()
+        connection = db_connection()
         cursor = connection.cursor()
         query = """
                 INSERT INTO data (email, ticker, valore, timestamp)

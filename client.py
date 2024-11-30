@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import logging
+import os
 
 import grpc
 import financeapp_pb2
@@ -8,7 +9,9 @@ import financeapp_pb2_grpc
 
 
 def run():
-    with grpc.insecure_channel('localhost:50051') as channel:
+    server_host = os.getenv('SERVER_HOST', 'localhost')
+    server_port = os.getenv('SERVER_PORT', '50051')
+    with grpc.insecure_channel(f'{server_host}:{server_port}') as channel:
         stub = financeapp_pb2_grpc.OperationStub(channel)
         scelta = input("Seleziona l'operazione da eseguire: \n1) Registra utente\n2) Aggiorna ticker\n3) Cancella utente\n4) Recupera valore\n5) Recupera media valori\n0) Esci\n")
         if scelta == "1":

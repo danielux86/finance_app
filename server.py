@@ -4,6 +4,7 @@ import logging
 import re
 
 from cachetools import TTLCache
+import os
 import grpc
 import financeapp_pb2
 import financeapp_pb2_grpc
@@ -13,10 +14,11 @@ import MySQLdb
 def db_connection():
     try:
         connection = MySQLdb.connect(
-            host="localhost",
-            user="server",
-            password="1234",
-            database="financeapp"
+            host=os.getenv('MYSQL_HOST', 'mysqldb'),
+            port=int(os.getenv('MYSQL_PORT', 3306)),
+            user=os.getenv('MYSQL_USER', 'server'),
+            password=os.getenv('MYSQL_PASSWORD', '1234'),
+            database=os.getenv('MYSQL_DATABASE', 'financeapp')
         )
         return connection
     except MySQLdb.Error as err:
