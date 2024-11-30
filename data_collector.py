@@ -1,5 +1,6 @@
 import time
 import MySQLdb
+import os
 import yfinance as yf
 
 from circuit_breaker import CircuitBreaker, CircuitBreakerOpenException
@@ -9,10 +10,11 @@ circuit_breaker = CircuitBreaker()  #argomenti personalizzati
 def db_connection():
     try:
         connection = MySQLdb.connect(
-            host="localhost",
-            user="server",
-            password="1234",
-            database="financeapp"
+            host=os.getenv('MYSQL_HOST', 'mysqldb'),
+            port=int(os.getenv('MYSQL_PORT', 3306)),
+            user=os.getenv('MYSQL_USER', 'server'),
+            password=os.getenv('MYSQL_PASSWORD', '1234'),
+            database=os.getenv('MYSQL_DATABASE', 'financeapp')
         )
         return connection
     except MySQLdb.Error as err:
