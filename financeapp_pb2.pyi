@@ -4,20 +4,6 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class OpRequest(_message.Message):
-    __slots__ = ("op1", "op2")
-    OP1_FIELD_NUMBER: _ClassVar[int]
-    OP2_FIELD_NUMBER: _ClassVar[int]
-    op1: float
-    op2: float
-    def __init__(self, op1: _Optional[float] = ..., op2: _Optional[float] = ...) -> None: ...
-
-class OpReply(_message.Message):
-    __slots__ = ("res",)
-    RES_FIELD_NUMBER: _ClassVar[int]
-    res: float
-    def __init__(self, res: _Optional[float] = ...) -> None: ...
-
 class DatiUtente(_message.Message):
     __slots__ = ("email", "ticker")
     EMAIL_FIELD_NUMBER: _ClassVar[int]
@@ -53,3 +39,11 @@ class DatiMediaValori(_message.Message):
     email: str
     numeroDati: int
     def __init__(self, email: _Optional[str] = ..., numeroDati: _Optional[int] = ...) -> None: ...
+
+class RegistraUtenteRequest(_message.Message):
+    __slots__ = ("email", "ticker")
+    EMAIL_FIELD_NUMBER: _ClassVar[int]
+    TICKER_FIELD_NUMBER: _ClassVar[int]
+    email: str
+    ticker: str
+    def __init__(self, email: _Optional[str] = ..., ticker: _Optional[str] = ...) -> None: ...

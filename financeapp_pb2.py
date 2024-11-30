@@ -24,27 +24,25 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x66inanceapp.proto\x12\toperation\"%\n\tOpRequest\x12\x0b\n\x03op1\x18\x01 \x01(\x01\x12\x0b\n\x03op2\x18\x02 \x01(\x01\"\x16\n\x07OpReply\x12\x0b\n\x03res\x18\x01 \x01(\x01\"+\n\nDatiUtente\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\"\x16\n\x05\x45mail\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"/\n\x08\x43onferma\x12\x10\n\x08\x63onferma\x18\x01 \x01(\x08\x12\x11\n\tmessaggio\x18\x02 \x01(\t\"\x18\n\x06Valore\x12\x0e\n\x06valore\x18\x01 \x01(\x02\"4\n\x0f\x44\x61tiMediaValori\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nnumeroDati\x18\x02 \x01(\x05\x32\x92\x04\n\tOperation\x12\x31\n\x03Mul\x12\x14.operation.OpRequest\x1a\x12.operation.OpReply\"\x00\x12\x31\n\x03\x41\x64\x64\x12\x14.operation.OpRequest\x1a\x12.operation.OpReply\"\x00\x12\x31\n\x03Sub\x12\x14.operation.OpRequest\x1a\x12.operation.OpReply\"\x00\x12\x31\n\x03\x44iv\x12\x14.operation.OpRequest\x1a\x12.operation.OpReply\"\x00\x12>\n\x0eRegistraUtente\x12\x15.operation.DatiUtente\x1a\x13.operation.Conferma\"\x00\x12>\n\x0e\x41ggiornaTicker\x12\x15.operation.DatiUtente\x1a\x13.operation.Conferma\"\x00\x12\x39\n\x0e\x43\x61ncellaUtente\x12\x10.operation.Email\x1a\x13.operation.Conferma\"\x00\x12\x37\n\x0eRecuperaValore\x12\x10.operation.Email\x1a\x11.operation.Valore\"\x00\x12\x45\n\x12\x43\x61lcolaMediaValori\x12\x1a.operation.DatiMediaValori\x1a\x11.operation.Valore\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x66inanceapp.proto\x12\toperation\"+\n\nDatiUtente\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\"\x16\n\x05\x45mail\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"/\n\x08\x43onferma\x12\x10\n\x08\x63onferma\x18\x01 \x01(\x08\x12\x11\n\tmessaggio\x18\x02 \x01(\t\"\x18\n\x06Valore\x12\x0e\n\x06valore\x18\x01 \x01(\x02\"4\n\x0f\x44\x61tiMediaValori\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nnumeroDati\x18\x02 \x01(\x05\"6\n\x15RegistraUtenteRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t2\xc6\x02\n\tOperation\x12>\n\x0eRegistraUtente\x12\x15.operation.DatiUtente\x1a\x13.operation.Conferma\"\x00\x12>\n\x0e\x41ggiornaTicker\x12\x15.operation.DatiUtente\x1a\x13.operation.Conferma\"\x00\x12\x39\n\x0e\x43\x61ncellaUtente\x12\x10.operation.Email\x1a\x13.operation.Conferma\"\x00\x12\x37\n\x0eRecuperaValore\x12\x10.operation.Email\x1a\x11.operation.Valore\"\x00\x12\x45\n\x12\x43\x61lcolaMediaValori\x12\x1a.operation.DatiMediaValori\x1a\x11.operation.Valore\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'financeapp_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_OPREQUEST']._serialized_start=31
-  _globals['_OPREQUEST']._serialized_end=68
-  _globals['_OPREPLY']._serialized_start=70
-  _globals['_OPREPLY']._serialized_end=92
-  _globals['_DATIUTENTE']._serialized_start=94
-  _globals['_DATIUTENTE']._serialized_end=137
-  _globals['_EMAIL']._serialized_start=139
-  _globals['_EMAIL']._serialized_end=161
-  _globals['_CONFERMA']._serialized_start=163
-  _globals['_CONFERMA']._serialized_end=210
-  _globals['_VALORE']._serialized_start=212
-  _globals['_VALORE']._serialized_end=236
-  _globals['_DATIMEDIAVALORI']._serialized_start=238
-  _globals['_DATIMEDIAVALORI']._serialized_end=290
-  _globals['_OPERATION']._serialized_start=293
-  _globals['_OPERATION']._serialized_end=823
+  _globals['_DATIUTENTE']._serialized_start=31
+  _globals['_DATIUTENTE']._serialized_end=74
+  _globals['_EMAIL']._serialized_start=76
+  _globals['_EMAIL']._serialized_end=98
+  _globals['_CONFERMA']._serialized_start=100
+  _globals['_CONFERMA']._serialized_end=147
+  _globals['_VALORE']._serialized_start=149
+  _globals['_VALORE']._serialized_end=173
+  _globals['_DATIMEDIAVALORI']._serialized_start=175
+  _globals['_DATIMEDIAVALORI']._serialized_end=227
+  _globals['_REGISTRAUTENTEREQUEST']._serialized_start=229
+  _globals['_REGISTRAUTENTEREQUEST']._serialized_end=283
+  _globals['_OPERATION']._serialized_start=286
+  _globals['_OPERATION']._serialized_end=612
 # @@protoc_insertion_point(module_scope)

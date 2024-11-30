@@ -10,21 +10,30 @@ import financeapp_pb2_grpc
 def run():
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = financeapp_pb2_grpc.OperationStub(channel)
-        op1 = input("Inserisci il primo numero: ")
-        op2 = input("Inserisci il secondo numero: ")
-        scelta = input("Seleziona l'operazione da eseguire: \n1) Addizione\n2) Sottrazione\n3) Moltiplicazione\n4) Divisione\n")
+        scelta = input("Seleziona l'operazione da eseguire: \n1) Registra utente\n2) Aggiorna ticker\n3) Cancella utente\n4) Recupera valore\n5) Recupera media valori\n0) Esci\n")
         if scelta == "1":
-            response = stub.Add(financeapp_pb2.OpRequest(op1=int(op1),op2=int(op2)))
-            print("Risultato: ", response.res)
+            email = input("Inserisci email: ")
+            ticker = input("Inserisci ticker: ")
+            response = stub.RegistraUtente(financeapp_pb2.DatiUtente(email=email, ticker=ticker))
+            print("Conferma registrazione: ", response.conferma)
         elif scelta == "2":
-            response = stub.Sub(financeapp_pb2.OpRequest(op1=int(op1),op2=int(op2)))
-            print("Risultato: ", response.res)
+            email = input("Inserisci email: ")
+            ticker = input("Inserisci nuovo ticker: ")
+            response = stub.AggiornaTicker(financeapp_pb2.DatiUtente(email=email, ticker=ticker))
+            print("Conferma aggiornamento: ", response.conferma)
         elif scelta == "3":
-            response = stub.Mul(financeapp_pb2.OpRequest(op1=int(op1),op2=int(op2)))
-            print("Risultato: ", response.res)
+            email = input("Inserisci email: ")
+            response = stub.CancellaUtente(financeapp_pb2.Email(email=email))
+            print("Conferma cancellazione: ", response.conferma)
         elif scelta == "4":
-            response = stub.Div(financeapp_pb2.OpRequest(op1=float(op1),op2=float(op2)))
-            print("Risultato: ", response.res)
+            email = input("Inserisci email: ")
+            response = stub.RecuperaValore(financeapp_pb2.Email(email=email))
+            print("Valore ottenuto: ", response.valore)
+        elif scelta == "5":
+            email = input("Inserisci email: ")
+            numeroDati = input("Inserisci il numero di dati: ")
+            response = stub.CalcolaMediaValori(financeapp_pb2.Email(email=email, numeroDati=numeroDati))
+            print("Media valori ottenuta: ", response.media)
         else:
             print("Scelta non valida")
     
@@ -33,4 +42,3 @@ def run():
 if __name__ == '__main__':
     logging.basicConfig()
     run()
-

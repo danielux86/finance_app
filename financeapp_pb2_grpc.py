@@ -34,26 +34,6 @@ class OperationStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Mul = channel.unary_unary(
-                '/operation.Operation/Mul',
-                request_serializer=financeapp__pb2.OpRequest.SerializeToString,
-                response_deserializer=financeapp__pb2.OpReply.FromString,
-                _registered_method=True)
-        self.Add = channel.unary_unary(
-                '/operation.Operation/Add',
-                request_serializer=financeapp__pb2.OpRequest.SerializeToString,
-                response_deserializer=financeapp__pb2.OpReply.FromString,
-                _registered_method=True)
-        self.Sub = channel.unary_unary(
-                '/operation.Operation/Sub',
-                request_serializer=financeapp__pb2.OpRequest.SerializeToString,
-                response_deserializer=financeapp__pb2.OpReply.FromString,
-                _registered_method=True)
-        self.Div = channel.unary_unary(
-                '/operation.Operation/Div',
-                request_serializer=financeapp__pb2.OpRequest.SerializeToString,
-                response_deserializer=financeapp__pb2.OpReply.FromString,
-                _registered_method=True)
         self.RegistraUtente = channel.unary_unary(
                 '/operation.Operation/RegistraUtente',
                 request_serializer=financeapp__pb2.DatiUtente.SerializeToString,
@@ -83,30 +63,6 @@ class OperationStub(object):
 
 class OperationServicer(object):
     """Missing associated documentation comment in .proto file."""
-
-    def Mul(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Add(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Sub(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Div(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def RegistraUtente(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -141,26 +97,6 @@ class OperationServicer(object):
 
 def add_OperationServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Mul': grpc.unary_unary_rpc_method_handler(
-                    servicer.Mul,
-                    request_deserializer=financeapp__pb2.OpRequest.FromString,
-                    response_serializer=financeapp__pb2.OpReply.SerializeToString,
-            ),
-            'Add': grpc.unary_unary_rpc_method_handler(
-                    servicer.Add,
-                    request_deserializer=financeapp__pb2.OpRequest.FromString,
-                    response_serializer=financeapp__pb2.OpReply.SerializeToString,
-            ),
-            'Sub': grpc.unary_unary_rpc_method_handler(
-                    servicer.Sub,
-                    request_deserializer=financeapp__pb2.OpRequest.FromString,
-                    response_serializer=financeapp__pb2.OpReply.SerializeToString,
-            ),
-            'Div': grpc.unary_unary_rpc_method_handler(
-                    servicer.Div,
-                    request_deserializer=financeapp__pb2.OpRequest.FromString,
-                    response_serializer=financeapp__pb2.OpReply.SerializeToString,
-            ),
             'RegistraUtente': grpc.unary_unary_rpc_method_handler(
                     servicer.RegistraUtente,
                     request_deserializer=financeapp__pb2.DatiUtente.FromString,
@@ -196,114 +132,6 @@ def add_OperationServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class Operation(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def Mul(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/operation.Operation/Mul',
-            financeapp__pb2.OpRequest.SerializeToString,
-            financeapp__pb2.OpReply.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def Add(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/operation.Operation/Add',
-            financeapp__pb2.OpRequest.SerializeToString,
-            financeapp__pb2.OpReply.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def Sub(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/operation.Operation/Sub',
-            financeapp__pb2.OpRequest.SerializeToString,
-            financeapp__pb2.OpReply.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def Div(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/operation.Operation/Div',
-            financeapp__pb2.OpRequest.SerializeToString,
-            financeapp__pb2.OpReply.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def RegistraUtente(request,
