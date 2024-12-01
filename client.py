@@ -2,14 +2,14 @@ from __future__ import print_function
 
 import logging
 import os
-
 import grpc
 import financeapp_pb2
 import financeapp_pb2_grpc
 
 
+
 def run():
-    server_host = os.getenv('SERVER_HOST', 'localhost')
+    server_host = os.getenv('SERVER_HOST', 'server')
     server_port = os.getenv('SERVER_PORT', '50051')
     with grpc.insecure_channel(f'{server_host}:{server_port}') as channel:
         stub = financeapp_pb2_grpc.OperationStub(channel)

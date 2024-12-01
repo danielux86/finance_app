@@ -56,7 +56,6 @@ services:
       - SERVER_HOST=server
       - SERVER_PORT=50051
     stdin_open: true
-    tty: true
     command: 
       - bash
     depends_on:

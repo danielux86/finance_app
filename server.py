@@ -1,14 +1,14 @@
 from concurrent import futures
+from cachetools import TTLCache
+
 import hashlib
 import logging
 import re
-
-from cachetools import TTLCache
-import os
 import grpc
 import financeapp_pb2
 import financeapp_pb2_grpc
 import MySQLdb
+import os
 
 # Database connection
 def db_connection():
@@ -61,7 +61,7 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
         else:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details('Database connection failed')
-            return financeapp_pb2.RegReply(res=False)
+            return financeapp_pb2.Conferma(conferma=False)
 
     def AggiornaTicker(self, request, context):
         if self.cursor:
@@ -107,11 +107,11 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
             except MySQLdb.Error as err:
                 context.set_code(grpc.StatusCode.INTERNAL)
                 context.set_details(f'Database error: {err}')
-                return financeapp_pb2.Valore(valore='')
+                return financeapp_pb2.Valore(valore=0.0)
         else:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details('Database connection failed')
-            return financeapp_pb2.Valore(valore='')
+            return financeapp_pb2.Valore(valore=0.0)
     
     def CalcolaMediaValori(self, request, context):
         if self.cursor:
@@ -126,15 +126,15 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
                 else:
                     context.set_code(grpc.StatusCode.NOT_FOUND)
                     context.set_details('Ticker not found')
-                    return financeapp_pb2.Media(media=0)
+                    return financeapp_pb2.Valore(valore=0.0)
             except MySQLdb.Error as err:
                 context.set_code(grpc.StatusCode.INTERNAL)
                 context.set_details(f'Database error: {err}')
-                return financeapp_pb2.Media(media=0)
+                return financeapp_pb2.Valore(valore=0.0)
         else:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details('Database connection failed')
-            return financeapp_pb2.Media(media=0)
+            return financeapp_pb2.Valore(valore=0.0)
     
 
 
