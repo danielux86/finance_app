@@ -17,14 +17,19 @@ def db_connection():
             password=os.getenv('MYSQL_PASSWORD', '1234'),
             database=os.getenv('MYSQL_DATABASE', 'financeapp')
         )
+        print("Connessione al database avvenuta con successo.")
         return connection
     except MySQLdb.Error as err:
         print("Error: ", err)
         return None
     
 def recupera_righe_utenti():   #database utenti: | email | ticker |
+    connection = None
+    cursor = None
     try:
         connection = db_connection()
+        if connection is None:
+            raise MySQLdb.Error("Connessione al database non riuscita.")
         cursor = connection.cursor()
         query = "SELECT email, ticker FROM utenti;"
         cursor.execute(query)
@@ -35,7 +40,7 @@ def recupera_righe_utenti():   #database utenti: | email | ticker |
     finally:
         if cursor:
             cursor.close()
-        if connection.is_connected():
+        if connection:
             connection.close()
                 
 def recupera_ultimo_valore(ticker):
@@ -52,8 +57,12 @@ def recupera_ultimo_valore(ticker):
         print(f"Errore durante il recupero del ticker {ticker}: {e}")
     
 def salva_stock_data(email, ticker, valore):
+    connection = None
+    cursor = None
     try:
         connection = db_connection()
+        if connection is None:
+            raise MySQLdb.Error("Connessione al database non riuscita.")
         cursor = connection.cursor()
         query = """
                 INSERT INTO data (email, ticker, valore, timestamp)
@@ -67,24 +76,27 @@ def salva_stock_data(email, ticker, valore):
     finally:
         if cursor:
             cursor.close()
-        if connection.is_connected():
+        if connection:
                 connection.close()
                 
 def avvia_data_collector():
     while True:
         try:
             righe = recupera_righe_utenti()
-            for email, ticker in righe:
-                print(f"Recupero dati per {ticker} associato a {email}")
-                try:
-                    ultimo_valore = circuit_breaker.call(recupera_ultimo_valore, ticker)  # Chiamata protetta dal CB
-                    salva_stock_data(email, ticker, ultimo_valore)
-                except CircuitBreakerOpenException:
-                    print("Errore: il circuito è aperto.")
-                except Exception as e:
-                    print(f"Errore per {ticker} (utente: {email}): {e}")
-        except:
-            print("Errore durante il recupero utenti")
+            if righe:
+                for email, ticker in righe:
+                    print(f"Recupero dati per {ticker} associato a {email}")
+                    try:
+                        ultimo_valore = circuit_breaker.call(recupera_ultimo_valore, ticker)  # Chiamata protetta dal CB
+                        salva_stock_data(email, ticker, ultimo_valore)
+                    except CircuitBreakerOpenException:
+                        print("Errore: il circuito è aperto.")
+                    except Exception as e:
+                        print(f"Errore per {ticker} (utente: {email}): {e}")
+            else:
+                print("Nessun utente trovato nel database.")
+        except Exception as e:
+            print(f"Errore durante il recupero utenti: {e}")
 
         print("Attendo un minuto prima del prossimo ciclo...")
         time.sleep(60)

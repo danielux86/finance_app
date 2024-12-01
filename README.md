@@ -8,7 +8,6 @@ L'applicazione supporta operazioni di registrazione utente, aggiornamento dei ti
 # **Buils & Deploy:**
 **Requisiti**
 - Docker
-- Python
 
 Procedimento:
 1. Effettuare da riga di comando il *git clone* della repository GitHub (https://github.com/danielux86/finance_app)

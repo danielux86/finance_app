@@ -49,9 +49,17 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
             self.cursor = None
             
     def RegistraUtente(self, request, context):
+        if not formato_corretto(request.email):
+            return financeapp_pb2.Conferma(conferma=False, messaggio="Email non valida.")
+        
+        id = genera_id(request, "registrazione")
+        if id in cache:
+            return financeapp_pb2.Conferma(conferma=True, messaggio="Operazione già effettuata.")
+
         if self.cursor:
             try:
                 self.cursor.execute("INSERT INTO utenti (email, ticker) VALUES (%s, %s)", (request.email, request.ticker))
+                cache[id] = True
                 self.connection.commit()
                 return financeapp_pb2.Conferma(conferma=True, messaggio="Registrazione effettuata.")
             except MySQLdb.Error as err:
@@ -64,9 +72,14 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
             return financeapp_pb2.Conferma(conferma=False)
 
     def AggiornaTicker(self, request, context):
+        id = genera_id(request, "aggiornamento")
+        if id in cache:
+            return financeapp_pb2.Conferma(conferma=True, messaggio="Operazione già effettuata.")
+        
         if self.cursor:
             try:
                 self.cursor.execute("UPDATE utenti SET ticker = %s WHERE email = %s", (request.ticker, request.email))
+                cache[id] = True
                 self.connection.commit()
                 return financeapp_pb2.Conferma(conferma=True, messaggio="Ticker aggiornato.")
             except MySQLdb.Error as err:
@@ -82,6 +95,7 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
         if self.cursor:
             try:
                 self.cursor.execute("DELETE FROM utenti WHERE email = %s", (request.email,))
+                self.cursor.execute("DELETE FROM data WHERE email = %s", (request.email,))
                 self.connection.commit()
                 return financeapp_pb2.Conferma(conferma=True, messaggio="Utente cancellato.")
             except MySQLdb.Error as err:
@@ -99,6 +113,7 @@ class Operation(financeapp_pb2_grpc.OperationServicer):
                 self.cursor.execute("SELECT valore FROM data WHERE email = %s ORDER BY timestamp DESC LIMIT 1", (request.email,))
                 risultato = self.cursor.fetchone()
                 if risultato:
+                    print(f"Valore ottenuto: {risultato[0]}")
                     return financeapp_pb2.Valore(valore=risultato[0])
                 else:
                     context.set_code(grpc.StatusCode.NOT_FOUND)

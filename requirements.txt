@@ -2,4 +2,4 @@ grpcio
 grpcio-tools
 yfinance
 cachetools
-MySQLdb
+mysqlclient

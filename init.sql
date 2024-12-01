@@ -8,7 +8,7 @@ CREATE TABLE utenti (
 );
 
 CREATE TABLE data (
-    id VARCHAR(64) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
     ticker VARCHAR(5) NOT NULL,
     valore FLOAT(10),

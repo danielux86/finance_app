@@ -36,7 +36,7 @@ def run():
             email = input("Inserisci email: ")
             numeroDati = input("Inserisci il numero di dati: ")
             response = stub.CalcolaMediaValori(financeapp_pb2.Email(email=email, numeroDati=numeroDati))
-            print("Media valori ottenuta: ", response.media)
+            print("Media valori ottenuta: ", response.valore)
         else:
             print("Scelta non valida")
     
