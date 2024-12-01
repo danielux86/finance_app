@@ -6,7 +6,7 @@ La comunicazione tra client e server avviene tramite chiamate gRPC, sfruttando i
 Inoltre, il progetto implementa un sistema di cache per garantire l'unicità delle operazioni (at-most-once), evitando chiamate duplicate per le stesse operazioni.
 L'applicazione supporta operazioni di registrazione utente, aggiornamento dei ticker, eliminazione degli utenti e recupero dei valori storici e media degli ultimi valori selezionati. 
 
-La repository è stata clonata da una repository precedente, per vedere la costruzione graduale del progetto: https://github.com/Fernando-Riccioli/DSBD-FinanceApp
+La repository è stata clonata da una versione precedente, per vedere la costruzione graduale del progetto: https://github.com/Fernando-Riccioli/DSBD-FinanceApp
 
 # **Build & Deploy:**
 **Requisiti:**
